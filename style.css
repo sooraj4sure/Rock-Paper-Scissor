@@ -138,9 +138,9 @@ h1 {
    transform: scale(1.05);
 }
 
-/* ======================
-   Responsive Styles Below
-   ====================== */
+/* 
+Responsive Styles Below
+*/
 @media (max-width: 768px) {
   h1 {
     font-size: 2rem;
