@@ -1,5 +1,6 @@
 const choices = document.querySelectorAll(".choice");
 const msg = document.querySelector("#msg");
+const compChoiceText = document.querySelector("#comp-choice");
 
 let userScorePara = document.querySelector("#user-score");
 let compScorePara = document.querySelector("#comp-score");
@@ -8,9 +9,9 @@ let reset = document.querySelector(".reset");
 
 let compScore = 0;
 let userScore = 0;
-//loop for selecting each choices and adding event listener
+
+// Loop through each choice and add event listener
 choices.forEach((choice) => {
-  console.log(choice);
   choice.addEventListener("click", () => {
     const userChoice = choice.getAttribute("id");
     playGame(userChoice);
@@ -18,12 +19,15 @@ choices.forEach((choice) => {
 });
 
 const playGame = (userChoice) => {
-  console.log("user choice=", userChoice);
+  console.log("User choice =", userChoice);
 
   const comChoice = genCompChoice(); // generate computer choice
-  console.log("computer choice", comChoice);
+  console.log("Computer choice =", comChoice);
 
-  //conditional statements for logic
+  // Show computer's choice on the page
+  compChoiceText.innerText = `Computer chose: ${comChoice}`;
+
+  // Game logic
   if (comChoice === userChoice) {
     drawGame();
   } else {
@@ -39,38 +43,41 @@ const playGame = (userChoice) => {
   }
 };
 
-// functions
-//  Getting computer choice using random function
+// Generate computer choice
 const genCompChoice = () => {
   const options = ["rock", "paper", "scissor"];
   const randIdx = Math.floor(Math.random() * 3);
   return options[randIdx];
 };
-// function for game draw
+
+// Game draw function
 const drawGame = () => {
-  msg.innerHTML = "It's a draw ! Play again";
+  msg.innerHTML = "It's a draw! Play again.";
   msg.style.backgroundColor = "#081b31";
 };
-// function for show Winner
 
+// Show winner function
 const showWinner = (userWin, userChoice, comChoice) => {
-  if (userWin === true) {
+  if (userWin) {
     userScore++;
     userScorePara.innerText = userScore;
-    msg.innerHTML = `You Win ! Your ${userChoice} beats ${comChoice}`;
+    msg.innerHTML = `You Win! Your ${userChoice} beats ${comChoice}`;
     msg.style.backgroundColor = "green";
   } else {
     compScore++;
     compScorePara.innerText = compScore;
-    msg.innerHTML = `You loose ! ${comChoice} beats Your ${userChoice}`;
+    msg.innerHTML = `You lose! ${comChoice} beats your ${userChoice}`;
     msg.style.backgroundColor = "red";
   }
 };
 
-// reset game button
+// Reset game
 reset.addEventListener("click", () => {
   compScorePara.innerText = 0;
   userScorePara.innerText = 0;
   compScore = 0;
   userScore = 0;
+  msg.innerHTML = "Start The Game";
+  msg.style.backgroundColor = "#081b31";
+  compChoiceText.innerText = "Computer chose: -";
 });
